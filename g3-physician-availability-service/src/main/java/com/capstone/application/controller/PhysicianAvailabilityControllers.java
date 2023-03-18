@@ -49,16 +49,19 @@ public class PhysicianAvailabilityControllers {
 		return availableP;
 	}
 	
-	@PostMapping("/physician-availability")
-	public PhysicianAvailabiityModel updatedPhysicianAvailability(@RequestBody PhysicianAvailabiityModel physicianAvailabiity) 
-	{
-		PhysicianAvailabiityModel updateResponse = physicianAvailabilityService.update(physicianAvailabiity);
-        return updateResponse;
-	}
-	
+//	@PostMapping("/physician-availability")
+//	public PhysicianAvailabiityModel updatedPhysicianAvailability(@RequestBody PhysicianAvailabiityModel physicianAvailabiity) 
+//	{
+//		PhysicianAvailabiityModel updateResponse = physicianAvailabilityService.update(physicianAvailabiity);
+//        return updateResponse;
+//	}
+//	
 	@PutMapping("/physician-availability")
 	public ResponseEntity<PhysicianAvailabiityModel> updatedPhysicianAvailabilitys(@RequestBody PhysicianAvailabiityModel physicianAvailabiity) 
 	{
+		System.out.printf(physicianAvailabiity.getEndDate().toString());
+		System.out.printf(physicianAvailabiity.getPhysicianEmail().toString());
+		System.out.printf(physicianAvailabiity.getStartDate().toString());
 		PhysicianAvailabiityModel updateResponse = physicianAvailabilityService.update(physicianAvailabiity);
 		return new ResponseEntity<>(updateResponse, HttpStatus.OK );
 

@@ -1,5 +1,7 @@
 package com.capstone.application.service.impl;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import com.capstone.application.model.PhysicianAvailabiityModel;
 import com.capstone.application.repository.PhysicianAvailabilityRepository;
@@ -21,7 +23,20 @@ public class PhysicianAvailabilityServiceImpl implements PhysicianAvailabilitySe
 	}
 	
 	public PhysicianAvailabiityModel update(PhysicianAvailabiityModel physicianAvailabiity) {
-		PhysicianAvailabiityModel updateResponse = physicianAvailabilityRepository.save(physicianAvailabiity);
+		PhysicianAvailabiityModel p=physicianAvailabiity;
+		List<PhysicianAvailabiityModel>l=physicianAvailabilityRepository.findAll();
+		for(PhysicianAvailabiityModel i:l) {
+			if(i.getPhysicianEmail().equals(physicianAvailabiity.getPhysicianEmail())) {
+				p=i;
+				break;
+				
+			}
+		}
+		
+		p.setStartDate(physicianAvailabiity.getStartDate());
+		p.setEndDate(physicianAvailabiity.getEndDate());
+		
+		PhysicianAvailabiityModel updateResponse = physicianAvailabilityRepository.save(p);
         return updateResponse;
 	}
 
