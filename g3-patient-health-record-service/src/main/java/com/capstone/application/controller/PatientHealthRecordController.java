@@ -2,6 +2,8 @@ package com.capstone.application.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.application.dto.VisitDetailsDto;
+import com.capstone.application.model.AdminInfo;
 import com.capstone.application.model.DoctorInfo;
+import com.capstone.application.model.NurseInfo;
+import com.capstone.application.model.Patient;
 import com.capstone.application.model.Prescription;
 import com.capstone.application.model.Tests;
 import com.capstone.application.model.VisitDetails;
@@ -82,6 +87,18 @@ public class PatientHealthRecordController {
 		
 		patientHealthRecordService.postNurses();
 		
+	}
+	
+	@GetMapping("/nurses")
+	public ResponseEntity<List<NurseInfo>> NurseList() {
+		List <NurseInfo> nurse = patientHealthRecordService.NursefindAll();
+		return new ResponseEntity<>(nurse, HttpStatus.OK );
+	}
+	
+	@GetMapping("/admins")
+	public ResponseEntity<List<AdminInfo>> AdminList() {
+		List <AdminInfo> nurse = patientHealthRecordService.AdminfindAll();
+		return new ResponseEntity<>(nurse, HttpStatus.OK );
 	}
 	
 }

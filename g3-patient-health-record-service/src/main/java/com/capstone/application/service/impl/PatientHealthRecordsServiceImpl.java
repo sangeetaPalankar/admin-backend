@@ -518,16 +518,19 @@ public class PatientHealthRecordsServiceImpl implements PatientHealthRecordServi
   	   if(role.get(i).equals("Nurse") && x==0) {
   		   
   		   nurseInfoRepo.save(doc);
-  	   }
-  	   
-  	   
+  	   } 
      }
-     
-     
-     
-     
+	}
 
-		
+
+	@Override
+	public List<NurseInfo> NursefindAll() {
+		return nurseInfoRepo.findAll();
+	}
+
+	
+	public List<AdminInfo> AdminfindAll() {
+		return adminInfoRepo.findAll();
 	}
 
 
