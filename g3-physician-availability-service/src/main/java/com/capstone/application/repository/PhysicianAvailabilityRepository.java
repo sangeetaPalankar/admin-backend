@@ -9,6 +9,7 @@ import com.capstone.application.model.PhysicianAvailabiityModel;
 @Repository
 public interface PhysicianAvailabilityRepository extends JpaRepository<PhysicianAvailabiityModel, String>{
 	
-
+	@Query(value="SELECT count(*) FROM physician_availability WHERE physician_email=:email",nativeQuery=true)
+	int isValuePresent(String email);
 
 }

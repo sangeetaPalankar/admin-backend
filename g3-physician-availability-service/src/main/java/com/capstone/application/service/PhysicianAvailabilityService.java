@@ -9,4 +9,6 @@ public interface PhysicianAvailabilityService {
     public PhysicianAvailabiityModel update(PhysicianAvailabiityModel physicianAvailabiity);
 
     public boolean deletePhysician(String physicianEmail);
+	public void postDoctors() throws Throwable, Exception;
+
 }

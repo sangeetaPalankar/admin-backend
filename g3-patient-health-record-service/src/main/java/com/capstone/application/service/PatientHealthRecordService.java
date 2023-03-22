@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import com.capstone.application.dto.VisitDetailsDto;
 import com.capstone.application.model.AdminInfo;
-import com.capstone.application.model.DoctorInfo;
 import com.capstone.application.model.NurseInfo;
 import com.capstone.application.model.Prescription;
 import com.capstone.application.model.Tests;
@@ -20,7 +19,6 @@ public interface PatientHealthRecordService {
 	public VisitDetailsDto createVisitDetails(VisitDetailsDto visitDetailsDto);
 	public VisitDetailsDto updateVisitDetials(int patientId,VisitDetailsDto visitDetailsDto);
 	public List<Prescription> findAllPriscription();
-	public void postDoctors() throws Throwable, Exception;
 	public void postAdmins()throws Throwable, Exception;
 	public void postNurses()throws Throwable, Exception;
 	public List<NurseInfo> NursefindAll();

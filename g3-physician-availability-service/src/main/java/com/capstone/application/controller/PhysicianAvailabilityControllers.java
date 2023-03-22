@@ -18,7 +18,7 @@ import com.capstone.application.model.PhysicianAvailabiityModel;
 import com.capstone.application.service.PhysicianAvailabilityService;
 
 @RestController
-@CrossOrigin(origins="http://localhost:4200/")
+@CrossOrigin(origins="*")
 public class PhysicianAvailabilityControllers {
 	
 	private PhysicianAvailabilityService physicianAvailabilityService;
@@ -27,6 +27,11 @@ public class PhysicianAvailabilityControllers {
 		super();
 		this.physicianAvailabilityService = physicianAvailabilityService;
 	}
+	
+	
+	
+	
+	
 
 	@GetMapping("/physician-availability")
 	public ResponseEntity<List<PhysicianAvailabiityModel>> AvailablePhysician() {
@@ -36,12 +41,13 @@ public class PhysicianAvailabilityControllers {
 	
 	@GetMapping("/physician-avail")
 	public List<PhysicianAvailabiityModel> AvailablePhysician1(@RequestParam boolean availability) {
+		
 		List < PhysicianAvailabiityModel > availablePhysician = physicianAvailabilityService.findAll();
 		List<PhysicianAvailabiityModel> availableP=new ArrayList<>();
 		for(PhysicianAvailabiityModel i:availablePhysician)
 		{
 			if(i.isAvailability()==availability) {
-				System.out.println(i.getPhysicianEmail());
+				//System.out.println(i.getPhysicianEmail());
 				availableP.add(i);
 			}
 		}
@@ -59,9 +65,9 @@ public class PhysicianAvailabilityControllers {
 	@PutMapping("/physician-availability")
 	public ResponseEntity<PhysicianAvailabiityModel> updatedPhysicianAvailabilitys(@RequestBody PhysicianAvailabiityModel physicianAvailabiity) 
 	{
-		System.out.printf(physicianAvailabiity.getEndDate().toString());
-		System.out.printf(physicianAvailabiity.getPhysicianEmail().toString());
-		System.out.printf(physicianAvailabiity.getStartDate().toString());
+		//System.out.printf(physicianAvailabiity.getEndDate().toString());
+		//System.out.printf(physicianAvailabiity.getPhysicianEmail().toString());
+		//System.out.printf(physicianAvailabiity.getStartDate().toString());
 		PhysicianAvailabiityModel updateResponse = physicianAvailabilityService.update(physicianAvailabiity);
 		return new ResponseEntity<>(updateResponse, HttpStatus.OK );
 
@@ -71,5 +77,13 @@ public class PhysicianAvailabilityControllers {
 	public  ResponseEntity<?> deletePhysicianAvailability(@PathVariable("physicianEmail")String physicianEmail) {
 		physicianAvailabilityService.deletePhysician(physicianEmail);
 		return new ResponseEntity<>(HttpStatus.OK );
+	}
+	
+	
+	@GetMapping("/addDoctors")
+	public void postDoctors() throws Exception, Throwable {
+		
+		physicianAvailabilityService.postDoctors();
+		
 	}
 }

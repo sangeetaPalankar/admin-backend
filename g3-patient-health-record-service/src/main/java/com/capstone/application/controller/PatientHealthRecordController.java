@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.application.dto.VisitDetailsDto;
 import com.capstone.application.model.AdminInfo;
-import com.capstone.application.model.DoctorInfo;
 import com.capstone.application.model.NurseInfo;
 import com.capstone.application.model.Patient;
 import com.capstone.application.model.Prescription;
@@ -22,6 +22,7 @@ import com.capstone.application.model.VisitDetails;
 import com.capstone.application.service.PatientHealthRecordService;
 
 @RestController
+@CrossOrigin(origins="http://localhost:4200/")
 public class PatientHealthRecordController {
 	
 	private PatientHealthRecordService patientHealthRecordService;
@@ -68,12 +69,7 @@ public class PatientHealthRecordController {
 		return patientHealthRecordService.findAllPriscription();
 	}
 	
-	@GetMapping("/addDoctors")
-	public void postDoctors() throws Exception, Throwable {
-		
-		patientHealthRecordService.postDoctors();
-		
-	}
+	
 	
 	@GetMapping("/addAdmins")
 	public void postAdmins() throws Exception, Throwable {
