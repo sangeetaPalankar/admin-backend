@@ -309,6 +309,8 @@ public class PatientHealthRecordsServiceImpl implements PatientHealthRecordServi
 		//System.out.println(s.charAt(0));
 		
 		ArrayList<String> emails = new ArrayList<>();
+		ArrayList<String> firstName = new ArrayList<>();
+		ArrayList<String> lastName = new ArrayList<>();
 		
 		ArrayList<String> role = new ArrayList<>();
 
@@ -325,7 +327,34 @@ public class PatientHealthRecordsServiceImpl implements PatientHealthRecordServi
      
      
      for(int i=2;i<s.length()-3;i++) {
+    	//For First-Name
+  	   if(s.charAt(i)=='r' && s.charAt(i-1)=='i' && s.charAt(i-2)=='F') {
+  		   int x=i;
+  		   x+=10;
+  		   StringBuilder sb=new StringBuilder();
+  		   while(s.charAt(x)!='"') {
+  			   sb.append(s.charAt(x));
+  			   x++;
+  		   }
+  		   
+  		   firstName.add(sb.toString());
+  	   }
   	   
+  	   
+  	   
+  	   
+  	   //For Last-Name
+  	   if(s.charAt(i)=='s' && s.charAt(i-1)=='a' && s.charAt(i-2)=='L') {
+  		   int x=i;
+  		   x+=9;
+  		   StringBuilder sb=new StringBuilder();
+  		   while(s.charAt(x)!='"') {
+  			   sb.append(s.charAt(x));
+  			   x++;
+  		   }
+  		   
+  		   lastName.add(sb.toString());
+  	   }
   	   
   	 //For Role
   	   if(s.charAt(i)=='l' && s.charAt(i-1)=='o' && s.charAt(i-2)=='R') {
@@ -349,6 +378,8 @@ public class PatientHealthRecordsServiceImpl implements PatientHealthRecordServi
   	   //System.out.println(firstName.get(i)+"  "+lastName.get(i)+"  "+emails.get(i));
   	   NurseInfo doc=new NurseInfo();
   	   doc.setNurse_email(emails.get(i));
+  	   doc.setFirst_Name(firstName.get(i));
+  	   doc.setLast_Name(lastName.get(i));
   	   
   	   System.out.println(role.get(i));
   	   

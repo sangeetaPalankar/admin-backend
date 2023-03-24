@@ -48,7 +48,11 @@ public class PhysicianAvailabilityServiceImpl implements PhysicianAvailabilitySe
         String today=formatter.format(timeNow).toString();
 		int sD=today.compareTo(startDate);
 		int eD=today.compareTo(endDate);
-		if(sD==1 && eD==-1) {
+		System.out.println(startDate);
+		System.out.println(endDate);
+		System.out.println(sD);
+		System.out.println(eD);
+		if(sD>=1 && eD<=-1) {
 			return true;
 		}
 		else {
@@ -60,16 +64,21 @@ public class PhysicianAvailabilityServiceImpl implements PhysicianAvailabilitySe
 	
 	private void setTodaysAvailbilityForAll() {
 		
-	
+		
 		PhysicianAvailabiityModel model = null;
+		boolean nullCheck=false;
 		List<PhysicianAvailabiityModel>l=physicianAvailabilityRepository.findAll();
 		for(PhysicianAvailabiityModel p:l) {
 			LocalDate timeNow=LocalDate.now();
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
 	        String today=formatter.format(timeNow).toString();
+	        if(p.getStartDate()==null || p.getEndDate()==null) {
+	        	nullCheck=true;
+	        	continue;
+	        }
 			int sD=today.compareTo(p.getStartDate());
 			int eD=today.compareTo(p.getEndDate());
-			if(sD==1 && eD==-1) {
+			if(sD>=1 && eD<=-1) {
 				p.setAvailability(true);
 				model=p;
 			}
@@ -79,7 +88,9 @@ public class PhysicianAvailabilityServiceImpl implements PhysicianAvailabilitySe
 			}
 			
 		}
+		if(nullCheck==false) {
 		physicianAvailabilityRepository.save(model);
+		}
 		
 	}
 	
