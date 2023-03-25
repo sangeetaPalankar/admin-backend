@@ -187,6 +187,7 @@ public class PhysicianAvailabilityServiceImpl implements PhysicianAvailabilitySe
     	   if(emails.contains(matcher.group())) {
     		   continue;
     	   }else {
+    		   //System.out.println(matcher.group());
     		   emails.add(matcher.group());
     	   }
        }
@@ -204,7 +205,7 @@ public class PhysicianAvailabilityServiceImpl implements PhysicianAvailabilitySe
     			   sb.append(s.charAt(x));
     			   x++;
     		   }
-    		   
+    		   //System.out.println(sb.toString());
     		   firstName.add(sb.toString());
     	   }
     	   
@@ -220,7 +221,7 @@ public class PhysicianAvailabilityServiceImpl implements PhysicianAvailabilitySe
     			   sb.append(s.charAt(x));
     			   x++;
     		   }
-    		   
+    		   //System.out.println(sb.toString());
     		   lastName.add(sb.toString());
     	   }
     	   
@@ -236,7 +237,7 @@ public class PhysicianAvailabilityServiceImpl implements PhysicianAvailabilitySe
     			   sb.append(s.charAt(x));
     			   x++;
     		   }
-    		   
+    		   //System.out.println(sb.toString());
     		   speciality.add(sb.toString());
     	   }
     	   
@@ -252,6 +253,7 @@ public class PhysicianAvailabilityServiceImpl implements PhysicianAvailabilitySe
     			   x++;
     		   }
     		   
+    		   //System.out.println(sb.toString());
     		   role.add(sb.toString());
     		   
     	   }
@@ -270,16 +272,27 @@ public class PhysicianAvailabilityServiceImpl implements PhysicianAvailabilitySe
        
        
        for(int i=0;i<emails.size();i++) {
+    	   
+LocalDate timeNow=LocalDate.now();
+    	   
+   		   
+    	   
+    	   
     	   if(role.get(i).equals("Doctor") ) {
     		   int x=physicianAvailabilityRepository.isValuePresent(emails.get(i));
     		   if(x==0) {
-    	   System.out.println(firstName.get(i)+"  "+lastName.get(i)+"  "+emails.get(i));
+    	   //System.out.println(firstName.get(i)+"  "+lastName.get(i)+"  "+emails.get(i));
     	   PhysicianAvailabiityModel doc=new PhysicianAvailabiityModel();
     	   doc.setPhysicianEmail(emails.get(i));
     	   doc.setFirst_name(firstName.get(i));
     	   doc.setLast_name(lastName.get(i));
     	   doc.setSpeciality(speciality.get(i));
-    	   System.out.println(role.get(i));
+    	   //System.out.println(role.get(i));
+    	   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+           String yesterday=formatter.format(timeNow.minusDays(1)).toString();
+           
+    	   doc.setStartDate(yesterday);
+    	   doc.setEndDate(yesterday);
     	   
     	   
     	   
@@ -297,6 +310,30 @@ public class PhysicianAvailabilityServiceImpl implements PhysicianAvailabilitySe
        }
 		
 
+	}
+
+
+	@Override
+	public List<PhysicianAvailabiityModel> findAllPhysicianOnDate(String date) {
+		// TODO Auto-generated method stub
+		List<PhysicianAvailabiityModel>allPhy=physicianAvailabilityRepository.findAll();
+		List<PhysicianAvailabiityModel>physicianOnThatDate=new ArrayList<>();
+		for(PhysicianAvailabiityModel physician:allPhy) {
+			
+			if(physician.getStartDate()==null || physician.getEndDate()==null) {
+	        	
+	        	continue;
+	        }
+			int sD=date.compareTo(physician.getStartDate());
+			int eD=date.compareTo(physician.getEndDate());
+			if(sD>=0 && eD<=0) {
+				physicianOnThatDate.add(physician);
+			}
+				
+			
+		}
+		
+		return physicianOnThatDate;
 	}
 
 

@@ -10,5 +10,6 @@ public interface PhysicianAvailabilityService {
 
     public boolean deletePhysician(String physicianEmail);
 	public void postDoctors() throws Throwable, Exception;
+	public List<PhysicianAvailabiityModel> findAllPhysicianOnDate(String date);
 
 }

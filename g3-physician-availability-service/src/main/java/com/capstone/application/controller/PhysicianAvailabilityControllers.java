@@ -86,4 +86,16 @@ public class PhysicianAvailabilityControllers {
 		physicianAvailabilityService.postDoctors();
 		
 	}
+	
+	
+	
+	@GetMapping("/physician-available/OnthatDate/{date}")
+	public List<PhysicianAvailabiityModel> AvailablePhysicianOnthatDate(@PathVariable String date) {
+		
+		return physicianAvailabilityService.findAllPhysicianOnDate(date);
+	}
+	
+	
+	
+	
 }
